@@ -1,65 +1,82 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import {
+  Container,
+  Main,
+  Logo,
+  Title,
+  Desc,
+  LoginButtons,
+  Button,
+} from "../styles/Home-css";
+import Head from "next/head";
+import GitHubIcon from "../components/Icons/GitHub";
+import { loginWithGitHub, onAuthStateChanged } from "../firebase/client";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [user, setUser] = useState(undefined);
+  useEffect(() => {
+    onAuthStateChanged((user) => {
+      setUser(user);
+    });
+  }, []);
+
+  const handleClick = () => {
+    loginWithGitHub()
+      .then((user) => {
+        setUser(user);
+        console.log(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <div className={styles.container}>
+    <Container>
       <Head>
-        <title>Create Next App</title>
+        <title>Devtter</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      <Main>
+        <Logo
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+          }}
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+          <img src="/dev.svg.png" alt="Logo " />
+          <Title>
+            <a>Devtter</a>
+          </Title>
+        </Logo>
+        <Desc>Talking about development</Desc>
+        <LoginButtons>
+          {
+            // State 1:  when user is not logged in
+            user === null && (
+              <Button onClick={handleClick}>
+                <GitHubIcon fill="#ffffff" width={24} height={24} />
+                Login with GitHub
+              </Button>
+            )
+          }
+          {
+            // State2: When user is undefined
+            // State 3: When user is logged in
+
+            user && user.name && (
+              <div>
+                <img src={user.avatar} alt="Avatar" />
+                <strong>{user.name}</strong>
+              </div>
+            )
+          }
+        </LoginButtons>
+      </Main>
+    </Container>
+  );
 }
