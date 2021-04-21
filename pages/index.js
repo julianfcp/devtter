@@ -11,6 +11,7 @@ import Head from "next/head";
 import GitHubIcon from "../components/Icons/GitHub";
 import { loginWithGitHub, onAuthStateChanged } from "../firebase/client";
 import { useState, useEffect } from "react";
+import Avatar from "../components/Avatar";
 
 export default function Home() {
   const [user, setUser] = useState(undefined);
@@ -70,8 +71,13 @@ export default function Home() {
 
             user && user.name && (
               <div>
-                <img src={user.avatar} alt="Avatar" />
-                <strong>{user.name}</strong>
+                <Avatar
+                  src={user.avatar}
+                  alt={user.name}
+                  title="Avatar"
+                  text={user.name}
+                  withText
+                />
               </div>
             )
           }
