@@ -1,17 +1,17 @@
 import {
-  Container,
+  AppLayout,
   Main,
   Logo,
   Title,
   Desc,
   LoginButtons,
   Button,
-} from "../styles/Home-css";
+} from "styles/App-css";
 import Head from "next/head";
-import GitHubIcon from "../components/Icons/GitHub";
-import { loginWithGitHub, onAuthStateChanged } from "../firebase/client";
+import GitHubIcon from "components/Icons/GitHub";
+import { loginWithGitHub, onAuthStateChanged } from "firebase/client";
 import { useState, useEffect } from "react";
-import Avatar from "../components/Avatar";
+import Avatar from "components/Avatar";
 
 export default function Home() {
   const [user, setUser] = useState(undefined);
@@ -33,7 +33,7 @@ export default function Home() {
   };
 
   return (
-    <Container>
+    <AppLayout>
       <Head>
         <title>Devtter</title>
         <link rel="icon" href="/favicon.ico" />
@@ -83,6 +83,6 @@ export default function Home() {
           }
         </LoginButtons>
       </Main>
-    </Container>
+    </AppLayout>
   );
 }
