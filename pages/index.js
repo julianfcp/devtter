@@ -1,25 +1,25 @@
 import {
-  AppLayout,
-  Main,
+  LoginPage,
   Logo,
   Title,
   Desc,
   LoginButtons,
   Button,
 } from "styles/App-css";
-import Head from "next/head";
 import GitHubIcon from "components/Icons/GitHub";
 import { loginWithGitHub, onAuthStateChanged } from "firebase/client";
 import { useState, useEffect } from "react";
+import userHook, { USER_STATES } from "hooks/userHook";
+import { useRouter } from "next/router";
 import Avatar from "components/Avatar";
 
 export default function Home() {
-  const [user, setUser] = useState(undefined);
+  const user = userHook();
+  const router = useRouter();
+
   useEffect(() => {
-    onAuthStateChanged((user) => {
-      setUser(user);
-    });
-  }, []);
+    user && router.replace("/Home");
+  }, [user]); // every time user changes
 
   const handleClick = () => {
     loginWithGitHub()
@@ -33,13 +33,8 @@ export default function Home() {
   };
 
   return (
-    <AppLayout>
-      <Head>
-        <title>Devtter</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Main>
+    <>
+      <LoginPage>
         <Logo
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -58,7 +53,7 @@ export default function Home() {
         <LoginButtons>
           {
             // State 1:  when user is not logged in
-            user === null && (
+            user === USER_STATES.NOT_LOGGED_IN && (
               <Button onClick={handleClick}>
                 <GitHubIcon fill="#ffffff" width={24} height={24} />
                 Login with GitHub
@@ -67,8 +62,10 @@ export default function Home() {
           }
           {
             // State2: When user is undefined
+            user === USER_STATES.LOADING && <span>loading...</span>
+          }
+          {
             // State 3: When user is logged in
-
             user && user.name && (
               <div>
                 <Avatar
@@ -82,7 +79,7 @@ export default function Home() {
             )
           }
         </LoginButtons>
-      </Main>
-    </AppLayout>
+      </LoginPage>
+    </>
   );
 }

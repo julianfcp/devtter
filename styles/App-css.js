@@ -26,12 +26,10 @@ export const Main = styled(motion.main)`
   border-radius: 10px 10px;
   margin: 10px;
   box-shadow: #000 0px 2px 20px;
-  padding: 5rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  overflow-y: auto;
   @media screen and (max-width: 600px) {
     width: 100%;
     margin: 0;
@@ -39,6 +37,14 @@ export const Main = styled(motion.main)`
     padding: 0;
     border-radius: 0;
   }
+`;
+
+export const LoginPage = styled(motion.section)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 `;
 
 export const Title = styled(motion.h1)`
@@ -89,6 +95,10 @@ export const Button = styled(motion.button)`
   }
   svg {
     margin-right: 10px;
+  }
+  :disabled {
+    pointer-events: none;
+    opacity: 0.2;
   }
 `;
 

@@ -1,46 +1,43 @@
-import { AppLayout } from "styles/App-css";
-import {
-  Header,
-  Footer,
-  Main,
-  Section,
-  Devit,
-  DContent,
-} from "styles/Home-css";
+import { Header, Footer, Section } from "styles/Home-css";
 import { useState, useEffect } from "react";
-import Avatar from "components/Avatar";
+import userHook from "hooks/userHook";
+import Devit from "components/Devit";
+import { fetchLatestDevitts } from "firebase/client";
 
 export default function HomePage() {
   const [timeline, setTimeline] = useState([]);
+  const user = userHook();
+
   useEffect(() => {
-    fetch("/api/statuses/home_timeline")
-      .then((res) => res.json())
-      .then(setTimeline);
-  }, []);
+    user &&
+      fetchLatestDevitts().then((data) => {
+        setTimeline(data);
+      });
+    //fetch("/api/statuses/home_timeline")
+    //.then((res) => res.json())
+    //.then(setTimeline);
+  }, [user]); // when user changes
 
   return (
     <>
-      <AppLayout>
-        <Main>
-          <Header>Inicio</Header>
-          <Section>
-            {timeline.length !== 0 &&
-              timeline.map((devit) => {
-                return (
-                  <Devit key={devit.id}>
-                    <Avatar src={devit.avatar} alt={devit.username}></Avatar>
-                    <DContent>
-                      <h4>{devit.username}</h4>
-
-                      {devit.message}
-                    </DContent>
-                  </Devit>
-                );
-              })}
-          </Section>
-          <Footer>Footer</Footer>
-        </Main>
-      </AppLayout>
+      <Header>Inicio</Header>
+      <Section>
+        {timeline.length !== 0 &&
+          timeline.map((devit) => {
+            return (
+              <Devit
+                key={devit.id}
+                id={devit.id}
+                avatar={devit.avatar}
+                userName={devit.userName}
+                content={devit.content}
+                userId={devit.userId}
+                formattedDate={devit.formattedDate}
+              ></Devit>
+            );
+          })}
+      </Section>
+      <Footer>Footer</Footer>
     </>
   );
 }

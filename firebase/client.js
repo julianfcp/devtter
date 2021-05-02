@@ -16,13 +16,18 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
+//// Database init
+
+const db = firebase.firestore();
+
 const mapUserFromFirebaseAuthToUser = (user) => {
   console.log(user);
-  const { displayName, photoURL, email } = user;
+  const { displayName, photoURL, email, uid } = user;
   return {
     avatar: photoURL,
     name: displayName,
     email,
+    uid,
   };
 };
 
@@ -41,5 +46,45 @@ export const loginWithGitHub = () => {
     .signInWithPopup(githubProvider)
     .then((user) => {
       return mapUserFromFirebaseAuthToUser(user);
+    });
+};
+
+export const addDevitt = ({ avatar, content, userId, userName }) => {
+  return db.collection("devitts").add({
+    avatar,
+    content,
+    userId,
+    userName,
+    createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+    likesCount: 0,
+    sharedCount: 0,
+  });
+};
+
+export const fetchLatestDevitts = () => {
+  return db
+    .collection("devitts")
+    .get()
+    .then((snapshot) => {
+      return snapshot.docs.map((doc) => {
+        const data = doc.data();
+        const id = doc.id;
+        const { createdAt } = data;
+        const createdAtDate = createdAt.toDate();
+        const formattedDate =
+          createdAtDate.getFullYear() +
+          "/" +
+          (createdAtDate.getMonth() + 1) +
+          "/" +
+          createdAtDate.getDate();
+        console.log(formattedDate);
+
+        //const normalizedCreatedAt = new Date(createdAt.seconds).toString();
+        return {
+          ...data,
+          id,
+          formattedDate,
+        };
+      });
     });
 };
