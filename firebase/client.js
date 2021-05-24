@@ -70,20 +70,21 @@ export const fetchLatestDevitts = () => {
         const data = doc.data();
         const id = doc.id;
         const { createdAt } = data;
-        const createdAtDate = createdAt.toDate();
+
+        /*const createdAtDate = createdAt.toDate();
         const formattedDate =
           createdAtDate.getFullYear() +
           "/" +
           (createdAtDate.getMonth() + 1) +
           "/" +
           createdAtDate.getDate();
-        console.log(formattedDate);
+        console.log(formattedDate);*/
 
         //const normalizedCreatedAt = new Date(createdAt.seconds).toString();
         return {
           ...data,
           id,
-          formattedDate,
+          createdAt: +createdAt.toDate(), // + converts to integer
         };
       });
     });

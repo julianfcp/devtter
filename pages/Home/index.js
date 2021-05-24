@@ -22,6 +22,7 @@ export default function HomePage() {
     <>
       <Header>Inicio</Header>
       <Section>
+        {timeline.length === 0 && <p> Loading ... </p>}
         {timeline.length !== 0 &&
           timeline.map((devit) => {
             return (
@@ -32,7 +33,7 @@ export default function HomePage() {
                 userName={devit.userName}
                 content={devit.content}
                 userId={devit.userId}
-                formattedDate={devit.formattedDate}
+                createdAt={devit.createdAt}
               ></Devit>
             );
           })}

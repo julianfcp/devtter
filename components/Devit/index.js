@@ -4,8 +4,10 @@ import {
   DevitContent,
 } from "styles/components-Styles/Devit-css";
 import Avatar from "components/Avatar";
+import useTimeAgo from "hooks/useTimeAgo";
 
-const Devit = ({ id, avatar, userName, content, userId, formattedDate }) => {
+const Devit = ({ id, avatar, userName, content, userId, createdAt }) => {
+  const timeAgo = useTimeAgo(createdAt);
   return (
     <>
       <DevitStyled>
@@ -13,7 +15,7 @@ const Devit = ({ id, avatar, userName, content, userId, formattedDate }) => {
         <DevitContent>
           <DevitHead>
             <h4>{userName}</h4>
-            <small>{formattedDate}</small>
+            <small>{timeAgo}</small>
           </DevitHead>
 
           {content}
