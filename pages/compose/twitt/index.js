@@ -4,6 +4,7 @@ import { Button } from "styles/App-css";
 import { TextAreaTwitt } from "styles/Compose-css";
 import userHook from "hooks/userHook";
 import { addDevitt } from "firebase/client";
+import Head from "next/head";
 
 const COMPOSE_STATUS = {
   USER_UNKNOWN: 0,
@@ -48,6 +49,9 @@ const ComposeTwitt = () => {
 
   return (
     <>
+      <Head>
+        <title>Devter / Create a Twitt</title>
+      </Head>
       <form onSubmit={handleSubmit}>
         <TextAreaTwitt
           onChange={handleChange}

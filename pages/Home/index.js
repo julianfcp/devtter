@@ -3,6 +3,11 @@ import { useState, useEffect } from "react";
 import userHook from "hooks/userHook";
 import Devit from "components/Devit";
 import { fetchLatestDevitts } from "firebase/client";
+import Link from "next/link";
+import Head from "next/head";
+import Create from "components/Icons/Create";
+import Home from "components/Icons/Home";
+import Search from "components/Icons/Search";
 
 export default function HomePage() {
   const [timeline, setTimeline] = useState([]);
@@ -20,6 +25,9 @@ export default function HomePage() {
 
   return (
     <>
+      <Head>
+        <title>Devter / Home</title>
+      </Head>
       <Header>Inicio</Header>
       <Section>
         {timeline.length === 0 && <p> Loading ... </p>}
@@ -38,7 +46,23 @@ export default function HomePage() {
             );
           })}
       </Section>
-      <Footer>Footer</Footer>
+      <Footer>
+        <Link href="/Home">
+          <a>
+            <Home width={32} height={32} stroke="#09F" />
+          </a>
+        </Link>
+        <Link href="/search">
+          <a>
+            <Search width={32} height={32} stroke="#09F" />
+          </a>
+        </Link>
+        <Link href="/compose/twitt">
+          <a>
+            <Create width={32} height={32} stroke="#09F" />
+          </a>
+        </Link>
+      </Footer>
     </>
   );
 }

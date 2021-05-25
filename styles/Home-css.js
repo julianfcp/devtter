@@ -23,9 +23,18 @@ export const Footer = styled(motion.footer)`
   position: fixed;
   bottom: 10px;
   border: 0.01em solid #cccccc;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
+  align-items: center;
   @media screen and (max-width: 600px) {
     width: 100%;
     bottom: 0;
+  }
+  a:hover {
+    background: radial-gradient(#0099ff22 15%, transparent 16%);
+    background-size: 180px 180px;
+    background-position: center;
   }
 `;
 
