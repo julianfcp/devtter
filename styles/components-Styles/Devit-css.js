@@ -16,6 +16,9 @@ export const DevitStyled = styled(motion.div)`
 export const DevitContent = styled(motion.div)`
   margin: 0px 10px;
   padding-top: 0px;
+  p {
+    margin: 0px;
+  }
 `;
 
 export const DevitHead = styled(motion.div)`

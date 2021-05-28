@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/functions";
 import "firebase/firestore";
+import "firebase/storage";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAQTL6rMNBV4EbiA34e4Nc6pcQiFB5TcoE",
@@ -49,9 +50,10 @@ export const loginWithGitHub = () => {
     });
 };
 
-export const addDevitt = ({ avatar, content, userId, userName }) => {
+export const addDevitt = ({ avatar, img, content, userId, userName }) => {
   return db.collection("devitts").add({
     avatar,
+    img,
     content,
     userId,
     userName,
@@ -89,4 +91,12 @@ export const fetchLatestDevitts = () => {
         };
       });
     });
+};
+
+export const uploadImage = (file) => {
+  // se utiliza firebase storage
+  const ref = firebase.storage().ref(`images/${file.name}`);
+  const task = ref.put(file); //upload
+
+  return task;
 };

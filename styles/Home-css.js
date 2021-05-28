@@ -7,8 +7,9 @@ export const Header = styled(motion.header)`
   width: inherit;
   position: fixed;
   top: 10px;
+  padding: 10px;
   border: 0.01em solid #cccccc;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8);
   @media screen and (max-width: 600px) {
     width: 100%;
     top: 0;
@@ -40,5 +41,6 @@ export const Footer = styled(motion.footer)`
 
 export const Section = styled(motion.section)`
   margin-top: 50px;
-  height: 80vh;
+  max-height: 70vh;
+  bottom: 10px;
 `;

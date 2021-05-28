@@ -38,6 +38,7 @@ export default function HomePage() {
                 key={devit.id}
                 id={devit.id}
                 avatar={devit.avatar}
+                img={devit.img}
                 userName={devit.userName}
                 content={devit.content}
                 userId={devit.userId}
