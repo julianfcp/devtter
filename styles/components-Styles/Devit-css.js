@@ -25,9 +25,13 @@ export const DevitHead = styled(motion.div)`
   margin: 0;
   display: flex;
   flex: 1;
-  align-items: center;
+  align-items: baseline;
+  flex-direction: row;
   cursor: pointer;
-  small {
-    margin: 0px 10px;
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
   }
 `;

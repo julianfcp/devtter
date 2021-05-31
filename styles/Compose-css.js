@@ -42,6 +42,7 @@ export const SectionImage = styled(motion.section)`
 `;
 
 export const SectionCompose = styled(motion.section)`
+  margin-top: 50px;
   display: flex;
   justify-content: flex-start;
   form {

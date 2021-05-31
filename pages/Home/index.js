@@ -48,7 +48,7 @@ export default function HomePage() {
           })}
       </Section>
       <Footer>
-        <Link href="/Home">
+        <Link href="/home">
           <a>
             <Home width={32} height={32} stroke="#09F" />
           </a>

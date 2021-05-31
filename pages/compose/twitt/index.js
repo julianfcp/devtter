@@ -13,6 +13,7 @@ import userHook from "hooks/userHook";
 import { addDevitt, uploadImage } from "firebase/client";
 import Head from "next/head";
 import Avatar from "components/Avatar";
+import { Header } from "styles/Home-css";
 
 const COMPOSE_STATUS = {
   USER_UNKNOWN: 0,
@@ -112,6 +113,7 @@ const ComposeTwitt = () => {
       <Head>
         <title>Devter / Create a Twitt</title>
       </Head>
+      <Header>Inicio</Header>
       <SectionCompose>
         <SectionAvatar>
           {user && <Avatar src={user.avatar} alt={user.name} />}

@@ -18,7 +18,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    user && router.replace("/Home");
+    user && router.replace("/home");
   }, [user]); // every time user changes
 
   const handleClick = () => {
