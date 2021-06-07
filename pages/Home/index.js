@@ -9,7 +9,19 @@ import Create from "components/Icons/Create";
 import Home from "components/Icons/Home";
 import Search from "components/Icons/Search";
 
-export default function HomePage() {
+export const getStaticProps = async (context) => {
+  const res = await fetch("http://localhost:3000/api/devits/");
+  const timelineData = await res.json();
+
+  // Fetching data from the api Server Side
+
+  return {
+    props: { timelineData },
+  };
+};
+
+// Fetchin data from the Client Side
+export default function HomePage({ timelineData }) {
   const [timeline, setTimeline] = useState([]);
   const user = userHook();
 
@@ -47,6 +59,7 @@ export default function HomePage() {
             );
           })}
       </Section>
+
       <Footer>
         <Link href="/home">
           <a>

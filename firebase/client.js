@@ -22,7 +22,6 @@ if (!firebase.apps.length) {
 const db = firebase.firestore();
 
 const mapUserFromFirebaseAuthToUser = (user) => {
-  console.log(user);
   const { displayName, photoURL, email, uid } = user;
   return {
     avatar: photoURL,
@@ -74,16 +73,6 @@ export const fetchLatestDevitts = () => {
         const id = doc.id;
         const { createdAt } = data;
 
-        /*const createdAtDate = createdAt.toDate();
-        const formattedDate =
-          createdAtDate.getFullYear() +
-          "/" +
-          (createdAtDate.getMonth() + 1) +
-          "/" +
-          createdAtDate.getDate();
-        console.log(formattedDate);*/
-
-        //const normalizedCreatedAt = new Date(createdAt.seconds).toString();
         return {
           ...data,
           id,

@@ -12,6 +12,10 @@ export const DevitStyled = styled(motion.div)`
     margin-top: 2px;
     margin-bottom: 5px;
   }
+  :hover {
+    background-color: rgb(0, 153, 255, 0.05);
+    cursor: pointer;
+  }
 `;
 export const DevitContent = styled(motion.div)`
   margin: 0px 10px;

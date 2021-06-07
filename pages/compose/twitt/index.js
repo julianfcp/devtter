@@ -79,7 +79,7 @@ const ComposeTwitt = () => {
       img: imgUrl,
     })
       .then(() => {
-        router.push("/Home");
+        router.push("/home");
         setStatus(COMPOSE_STATUS.SUCCESS);
         setMessage("");
       })

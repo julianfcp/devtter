@@ -7,15 +7,22 @@ import { Image } from "styles/Compose-css";
 import Avatar from "components/Avatar";
 import useTimeAgo from "hooks/useTimeAgo";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Devit = ({ id, avatar, img, userName, content, createdAt }) => {
   const timeAgo = useTimeAgo(createdAt);
+  const router = useRouter();
+
+  const handleDevitContent = (e) => {
+    e.preventDefault();
+    router.push(`/status/${id}`);
+  };
 
   return (
     <>
       <DevitStyled>
         <Avatar src={avatar} alt={userName}></Avatar>
-        <DevitContent>
+        <DevitContent onClick={handleDevitContent}>
           <DevitHead>
             <h4>{userName}</h4>
             <Link href={`/status/${id}`}>
