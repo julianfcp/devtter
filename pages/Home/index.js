@@ -9,7 +9,7 @@ import Create from "components/Icons/Create";
 import Home from "components/Icons/Home";
 import Search from "components/Icons/Search";
 
-export const getStaticProps = async (context) => {
+/*export const getStaticProps = async (context) => {
   const res = await fetch("http://localhost:3000/api/devits/");
   const timelineData = await res.json();
 
@@ -19,7 +19,7 @@ export const getStaticProps = async (context) => {
     props: { timelineData },
   };
 };
-
+*/
 // Fetchin data from the Client Side
 export default function HomePage({ timelineData }) {
   const [timeline, setTimeline] = useState([]);
@@ -30,9 +30,6 @@ export default function HomePage({ timelineData }) {
       fetchLatestDevitts().then((data) => {
         setTimeline(data);
       });
-    //fetch("/api/statuses/home_timeline")
-    //.then((res) => res.json())
-    //.then(setTimeline);
   }, [user]); // when user changes
 
   return (
